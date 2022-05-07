@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+    <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+    <py-env>
+        - paths:
+          - ./utils.py
+        </py-env>
+        <py-register-widget src="assets/scripts/script.py" name="py-list" klass="PyList"></py-register-widget>
+        <py-script>
+            def add_task(*ags, **kws):
+                # create a new dictionary representing the new task
+                task = { "content": new_task_content.value,  "done": False, "created_at": dt.now() }
+                # add a new task to the list and tell it to use the `content` key to show in the UI
+                # and to use the key `done` to sync the task status with a checkbox element in the UI
+                myList.add(task, labels=['content'], state_key="done")
+                # clear the inputbox element used to create the new task
+                new_task_content.clear()
+        </py-script>
+    <title>Document</title>
+</head>
+<body>
+    <py-title>To Do List</py-title>
+      <py-box widths="4/5;1/5">
+        <py-inputbox id="new-task-content">
+          def on_keypress(e):
+            if (e.code == "Enter"):
+              add_task()
+        </py-inputbox>
+        <py-button id="new-task-btn" label="Add Task!">
+          def on_click(evt):
+              add_task()
+        </py-button>
+      </py-box>
+      <py-list id="myList"></py-list>
+      <py-repl id="my-repl" auto-generate="true"> </py-repl>
+</body>
+</html>
